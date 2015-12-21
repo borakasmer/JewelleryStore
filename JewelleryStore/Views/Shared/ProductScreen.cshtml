@@ -1,0 +1,62 @@
+﻿@model List<DAL.tblProduct>
+@{int rowCount = 0;}
+@foreach (var item in Model)
+{
+    rowCount++;
+    if (rowCount > 3)
+    {
+        <div style="clear: both;"></div>
+        <br /><br />
+        rowCount = 1;
+    }
+    if (rowCount == 1)
+    {
+        <div class="left-panel">
+            <div style="text-align:center; font-family: 'Lobster', cursive; font-size:x-large; color:white">@item.Name</div>
+            <div style="clear: both;"></div>
+            <table cellpadding="15">
+                <tr>
+                    <td>
+                        <img src="~/Images/@item.ImageUrl" width="150" height="150" />
+                    </td>
+                    <td style="font-family: 'Dancing Script', cursive; font-size:larger;"><b>@item.Description</b></td>
+                </tr>
+                <tr><td align="center" style="font-family: 'Paytone One', sans-serif; font-size:x-large; color:#0B3861">@Math.Round((double)item.Price, 2) TL</td></tr>
+            </table>
+        </div>
+    }
+    else if (rowCount == 2)
+    {
+        <div class="center-panel">
+            <div style="text-align:center; font-family: 'Lobster', cursive; font-size:x-large; color:white">@item.Name</div>
+            <div style="clear: both;"></div>
+            <table cellpadding="15">
+                <tr>
+                    <td>
+                        <img src="~/Images/@item.ImageUrl" width="150" height="150" />
+                    </td>
+                    <td style="font-family: 'Dancing Script', cursive; font-size:larger;"><b>@item.Description</b></td>
+                </tr>
+                <tr><td align="center" style="font-family: 'Paytone One', sans-serif; font-size:x-large; color:#0B3861">@Math.Round((double)item.Price, 2) TL</td></tr>
+            </table>
+        </div>
+    }
+    else if (rowCount == 3)
+    {
+        <div class="right-panel">
+            <div style="text-align:center; font-family: 'Lobster', cursive; font-size:x-large; color:white">@item.Name</div>
+            <div style="clear: both;"></div>
+            <table cellpadding="15">
+                <tr>
+                    <td>
+                        <img src="~/Images/@item.ImageUrl" width="150" height="150" />
+                    </td>
+                    <td style="font-family: 'Dancing Script', cursive; font-size:larger;"><b>@item.Description</b></td>
+                </tr>
+                <tr><td align="center" style="font-family: 'Paytone One', sans-serif; font-size:x-large; color:#0B3861">@Math.Round((double)item.Price, 2) TL</td></tr>
+            </table>
+        </div>
+    }
+}
+<div style="clear: both;"></div>
+<br />

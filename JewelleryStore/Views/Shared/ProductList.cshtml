@@ -1,0 +1,28 @@
+﻿@using System.Activities.Statements
+@model List<DAL.tblProduct>
+<p><strong><span style="font-size: 14pt;">Jewellery Store Listesi</span></strong></p>
+<table class="taskList" style="WIDTH: 600px; BORDER-COLLAPSE: collapse" bordercolor="#bbbbbb" cellspacing="0" cellpadding="3" border="1">
+    <tbody>
+        <tr>
+            <th style="WIDTH: 20%; BACKGROUND-COLOR: #d7e4ef; TEXT-ALIGN: center" scope="col">Adı</th>
+            <th style="WIDTH: 20%; BACKGROUND-COLOR: #d7e4ef; TEXT-ALIGN: center" scope="col">Açıklaması</th>
+            <th style="WIDTH: 20%; BACKGROUND-COLOR: #d7e4ef; TEXT-ALIGN: center" scope="col">Resmi</th>
+            <th style="WIDTH: 20%; BACKGROUND-COLOR: #d7e4ef; TEXT-ALIGN: center" scope="col">Fiyatı</th>
+            <th style="WIDTH: 20%; BACKGROUND-COLOR: #d7e4ef; TEXT-ALIGN: center" scope="col">Düzenle</th>
+            <th style="WIDTH: 20%; BACKGROUND-COLOR: #d7e4ef; TEXT-ALIGN: center" scope="col">Sil</th>
+        </tr>
+    </tbody>
+    <tbody>
+        @foreach (var item in @Model)
+        {
+            <tr>
+                <td style="WIDTH: 20%; TEXT-ALIGN: center">@item.Name</td>
+                <td style="WIDTH: 20%; TEXT-ALIGN: center">@item.Description</td>
+                <td style="WIDTH: 20%; TEXT-ALIGN: center"><img id="theImg" src="../Images/@item.ImageUrl" width="30" height="30" /></td>
+                <td style="WIDTH: 20%; TEXT-ALIGN: center">@item.Price</td>
+                <td style="WIDTH: 20%; TEXT-ALIGN: center"><input type="button" onclick="editProduct(@item.ID)" value="Detay"/></td>
+                <td style="WIDTH: 20%; TEXT-ALIGN: center"><input type="button" onclick="deleteProduct(@item.ID)" value="Sil" /></td>
+            </tr>
+        }       
+    </tbody>
+</table><br />

@@ -1,0 +1,107 @@
+﻿@model DAL.tblUser
+@{
+    ViewBag.Title = "SignIn";
+}
+<head>
+    <!-- Bootstrap core CSS -->
+    <link href="/Content/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/Content/signin.css" rel="stylesheet">
+    <script src="~/Scripts/JewelleryScript.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Name').bind('keypress', function (e) {
+                var code = e.keyCode || e.which;
+                if (code == 13) {
+                    $('#Surname').focus();
+                }
+            });
+            $('#Surname').bind('keypress', function (e) {
+                var code = e.keyCode || e.which;
+                if (code == 13) {
+                    $('#Email').focus(); 
+                }
+            });
+            $('#Email').bind('keypress', function (e) {
+                var code = e.keyCode || e.which;
+                if (code == 13) {
+                    $('#Password').focus();
+                }
+            });
+            $('#Password').bind('keypress', function (e) {
+                var code = e.keyCode || e.which;
+                if (code == 13) {
+                    saveUser();
+                }
+            });
+        });
+
+    function saveUser() {
+        if (validateEmail($("#Email").val())) {
+            $("#Email").css('border-color', '');
+            $.post("/Home/SignIn", { 'Email': $("#Email").val(), 'Password': $("#Password").val(), 'Name': $("#Name").val(), 'Surname': $("#Surname").val() }, function (isOK) {
+                if (isOK==1) {
+                    alert("We Sent to Confirmation Mail.Please Go to Your Mail and Click The Url!");
+                    window.location.href = "/Home/Index";
+                } else if(isOK==2) {
+                    alert("There is an error while processing!");
+                }
+                else if (isOK == 3) {
+                    alert("Ther is a same Mail as Recorded!");
+                    $("#Email").css('border-color', '#FF0000');
+                    $("#Email").focus();
+                }
+            });
+        } else {
+            $("#Email").css('border-color', '#FF0000');
+            $("#Email").focus();
+        }
+    };
+    </script>
+
+</head>
+<br />
+<div class="container">
+    <table align="center">
+        <tr><td><h2>New User</h2></td></tr>
+        <tr>
+            <td>
+                Name:
+            </td>
+            <td>
+                <input class="form-control" type="text" id="Name" autofocus style="width:200px" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Surname:
+            </td>
+            <td>
+                <input class="form-control" type="text" id="Surname" style="width:200px" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Email:
+            </td>
+            <td>
+                <input class="form-control" type="email" id="Email" value="@Model.Email" style="width:200px" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Password:
+            </td>
+            <td>
+                <input class="form-control" type="password" id="Password" value="@Model.Password" style="width:200px" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="btn btn-lg btn-primary btn-block" type="button" onclick="saveUser();" value="Record" />
+            </td>
+        </tr>
+    </table>
+</div>
+

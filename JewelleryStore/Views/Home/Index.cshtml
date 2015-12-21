@@ -1,0 +1,49 @@
+﻿@model List<DAL.tblProduct>
+@{
+    ViewBag.Title = "Index";
+}
+<script src="@Url.Content("~/Scripts/jquery.signalR-2.1.1.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/signalr/hubs")"></script>
+<script>
+    var messagehub = $.connection.jewellery;
+
+    messagehub.client.reloadProduct = function (data) {        
+        $("#productScreen").html(data);
+    }
+    $.connection.hub.start();
+</script>
+
+<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Dancing+Script' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Paytone+One' rel='stylesheet' type='text/css'>
+<img src="~/Images/main_header.jpg" height="170px" width="960px"/><br /><br />
+<style>
+    .left-panel {
+        background-color: #ccc;
+        width: 27%;
+        height: 300px;
+        float: left;
+    }
+
+    .center-panel {
+        background-color: Gray;
+        width: 27%;
+        height: 300px;
+        float: left;
+        margin-left:20px;
+    }
+
+    .right-panel {
+        background-color: lightgrey;
+        width: 27%;
+        height: 300px;
+        float: left;
+        margin-left:20px;
+    }
+</style>
+
+<body background="/Images/orta-desen.png">
+    <div id="productScreen">
+        @{Html.RenderPartial("ProductScreen", Model);}
+    </div>
+</body>

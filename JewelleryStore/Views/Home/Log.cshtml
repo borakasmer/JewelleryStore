@@ -1,0 +1,34 @@
+﻿@model List<JewelleryStore.Models.Log>
+@{
+    ViewBag.Title = "Log";
+}
+<link href="/Content/signin.css" rel="stylesheet">
+
+<div class="container">
+    <br />
+    <p><strong><span style="font-size: 14pt;">Jewellery Store Log Listesi</span></strong></p>
+    <table class="taskList" style="WIDTH: 600px; BORDER-COLLAPSE: collapse" bordercolor="#bbbbbb" cellspacing="0" cellpadding="3" border="1">
+        <tbody>
+            <tr>
+                <th style="WIDTH: 10%; BACKGROUND-COLOR: #d7e4ef; TEXT-ALIGN: center" scope="col">ID</th>
+                <th style="WIDTH: 20%; BACKGROUND-COLOR: #d7e4ef; TEXT-ALIGN: center" scope="col">Kullanıcı</th>
+                <th style="WIDTH: 20%; BACKGROUND-COLOR: #d7e4ef; TEXT-ALIGN: center" scope="col">Yapılan İşlem</th>
+                <th style="WIDTH: 20%; BACKGROUND-COLOR: #d7e4ef; TEXT-ALIGN: center" scope="col">Takı</th>
+                <th style="WIDTH: 30%; BACKGROUND-COLOR: #d7e4ef; TEXT-ALIGN: center" scope="col">Zaman</th>
+            </tr>
+        </tbody>
+        <tbody>
+            @foreach (var item in @Model)
+            {
+                <tr>
+                    <td style="WIDTH: 10%; TEXT-ALIGN: center">@item.ID</td>
+                    <td style="WIDTH: 20%; TEXT-ALIGN: center">@item.UserName</td>
+                    <td style="WIDTH: 20%; TEXT-ALIGN: center">@item.LogType</td>
+                    <td style="WIDTH: 20%; TEXT-ALIGN: center">@item.ProductName</td>
+                    <td style="WIDTH: 30%; TEXT-ALIGN: center">@item.CreatedDate</td>
+                </tr>
+            }
+        </tbody>
+    </table><br />
+</div>
+

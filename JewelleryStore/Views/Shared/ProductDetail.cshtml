@@ -1,0 +1,22 @@
+﻿@model DAL.tblProduct
+<table>
+    <tr>
+        <td>Takının Resmi</td>
+        <td><input type="text" id="ImageUrl" readonly="true" class="form-control" value="@Model.ImageUrl"></td>
+    </tr>
+    <tr>
+        <td>Takının İsmi</td>
+        <td><input type="text" id="Name" class="form-control" value="@Model.Name"></td>
+    </tr>
+    <tr>
+        <td>Takının Fiyatı</td>
+        <td><input type="text" id="Price" class="form-control" value="@Model.Price"></td>
+    </tr>
+    <tr>
+        <td>Takının Açıklaması</td>
+        <td><textarea id="Description" style="width:177px; height:80px" class="form-control">@Model.Description</textarea></td>
+    </tr>
+    <tr>
+        <td><input type="button" onclick="saveProduct(@Model.ID)" value="Kaydet" id="btnSubmit"></td>
+    </tr>
+</table>

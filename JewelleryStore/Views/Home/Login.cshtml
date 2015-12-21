@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+<head>
+    <!-- Bootstrap core CSS -->
+    <link href="/Content/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/Content/signin.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="~/Scripts/JewelleryScript.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Email').bind('keypress', function (e) {
+                var code = e.keyCode || e.which;
+                if (code == 13) {
+                    $('#Password').focus();
+                }
+            });
+            $('#Password').bind('keypress', function (e) {
+                var code = e.keyCode || e.which;
+                if (code == 13) {
+                    saveUser();
+                }
+            });
+        });
+
+        function saveUser() {
+            if (validateEmail($("#Email").val())) {
+                $("#Email").css('border-color', '');
+                $.post("/Home/Login", { 'Email': $("#Email").val(), 'Password': $("#Password").val(), 'IsRemmber': $("#isRemmember").is(':checked') }, function (isOK) {
+                    if (isOK == 1) {
+                        var url = '@Url.Action("SignIn", new { Password = "__code__", Email = "__code2__" })';
+                        url = url.replace('__code2__', $("#Email").val());
+                        url = url.replace('__code__', $("#Password").val());
+                        url = url.replace("&amp", "").replace(";", "&");
+                        window.location.href = url;
+                    }
+                    else if (isOK == 2) {
+                        window.location.href = "/Home/Index";
+                    }
+                    else if (isOK == 3) {
+                        var result = confirm("Mail onaylanmamıştır. Tekrar onay maili atılsın mı?");
+                        if (result == true) {
+                            $.post("/Home/SendConfirmMail", { 'email': $("#Email").val() }, function (isSend) {
+                                if (isSend) {
+                                    alert("We Sent to Confirmation Mail.Please Go to Your Mail and Click The Url!");
+                                    window.location.href = "/Home/Index";
+                                } else {
+                                    alert("There is an error while processing!");
+                                }
+                            });
+                        }
+                    }
+                    else if (isOK == 4 || isOK == 5) {
+                        $("#Password").css('border-color', '#FF0000');
+                    }
+                });
+            }
+            else {
+                $("#Email").css('border-color', '#FF0000');
+                $("#Email").focus();
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <div class="container">
+
+        <form class="form-signin" role="form">
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <input type="email" class="form-control" placeholder="Email address" required autofocus id="Email" value="@ViewBag.Email">
+            <input type="password" class="form-control" placeholder="Password" required id="Password">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="remember-me" id="isRemmember"> Remember me
+                </label>
+                <label>
+                    &nbsp&nbsp&nbsp<a href="/Home/SignIn"> Sign In New User </a>
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="button" onclick="saveUser();">Sign in</button>
+        </form>
+    </div>
+</body>
+
